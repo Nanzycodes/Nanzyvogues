@@ -1,5 +1,5 @@
 // src/data/products.ts
-import type { Product } from "@/app//types/product";
+import type { Product } from "@/app/types/product";
 import type { Category } from "@/app/lib/categories";
 
 // Temporary fake data. Later this comes from our own API and database
@@ -74,4 +74,9 @@ export function getProductsByCategory(category: Category): Product[] {
 // which is why the return type says "Product | undefined"
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((product) => product.slug === slug);
+}
+// Picks the products to feature on the home page:
+// only the ones in stock, and at most the first 4
+export function getFeaturedProducts(): Product[] {
+  return products.filter((product) => product.inStock).slice(0, 4);
 }

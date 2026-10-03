@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { isCategory } from "@/app/lib/categories";
 import { getProductBySlug } from "@/app/data/products";
-
+import AddToCartButton from "@/app/components/AddToCartButton";
 // This page receives TWO values from the URL: category and slug
 type Props = { params: Promise<{ category: string; slug: string }> };
 
@@ -46,12 +46,7 @@ export default async function ProductPage({ params }: Props) {
 
           {/* The button is disabled when the product is sold out.
               It does nothing yet; we wire it up when we build the cart */}
-          <button
-            disabled={!product.inStock}
-            className="mt-6 rounded bg-black px-6 py-3 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
-          >
-            {product.inStock ? "Add to cart" : "Sold out"}
-          </button>
+          <AddToCartButton inStock={product.inStock} />{/*using the addto cart button in the product page*/}
         </div>
       </div>
     </main>

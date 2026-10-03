@@ -8,9 +8,7 @@ type Props = { product: Product };
 
 export default function ProductCard ({ product }: Props) {
   return (
-    // The whole card is a link to the product's own page (we build that page next,
-    // so for now clicking it shows a 404)
-    <Link href={`/store/${product.category}/${product.slug}`} className="group block">
+    <Link href={`/shop/${product.category}/${product.slug}`} className="group block">
       {/* "relative" + "aspect-square" gives a square box for the image to fill */}
       <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
         <Image
