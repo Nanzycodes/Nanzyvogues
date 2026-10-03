@@ -1,7 +1,11 @@
+// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    // Only images from these hosts may be loaded with <Image>
+    remotePatterns: [{ protocol: "https", hostname: "placehold.co" }],
+  },
 };
 
 export default nextConfig;

@@ -1,5 +1,5 @@
 // src/types/product.ts
-// Reuse the Category type from our shared list, so a product can only
+// Reuse the Category type from  shared list, so a product can only
 // belong to one of our five real categories
 import type { Category } from "@/app/lib/categories";
 
