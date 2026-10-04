@@ -46,7 +46,7 @@ export default async function ProductPage({ params }: Props) {
 
           {/* The button is disabled when the product is sold out.
               It does nothing yet; we wire it up when we build the cart */}
-          <AddToCartButton inStock={product.inStock} />{/*using the addto cart button in the product page*/}
+          <AddToCartButton product={product} />
         </div>
       </div>
     </main>

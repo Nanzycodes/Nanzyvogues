@@ -1,30 +1,30 @@
 // src/components/AddToCartButton.tsx
-"use client"; // here we try to use interact with the server
+"use client";
 
 import { useState } from "react";
+import type { Product } from "@/app/types/product.ts";
+import { useCart } from "@/app/context/cartContext";
 
-// The parent page tells the button whether the product is in stock
-type Props = { inStock: boolean };
+// The button now needs the whole product so it can put it in the cart
+type Props = { product: Product };
 
-export default function AddToCartButton({ inStock }: Props) {
-  // "added" remembers whether the button was just clicked.
-  // false at the start; setAdded changes it, and React re-draws the button
+export default function AddToCartButton({ product }: Props) {
+  const { addItem } = useCart(); // reach into the shared cart
   const [added, setAdded] = useState(false);
 
   function handleClick() {
-    setAdded(true); // show "Added ✓"
-    // After 2 seconds (2000 ms), go back to normal
+    addItem(product); // put the product in the real cart
+    setAdded(true);   // show "Added ✓" for 2 seconds, as before
     setTimeout(() => setAdded(false), 2000);
   }
 
   return (
     <button
-      onClick={handleClick} // runs handleClick whenever the button is clicked
-      disabled={!inStock}   // can't click it if the product is sold out
+      onClick={handleClick}
+      disabled={!product.inStock}
       className="mt-6 rounded bg-black px-6 py-3 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
     >
-      {/* Three possible labels, depending on the situation */}
-      {!inStock ? "Sold out" : added ? "Added ✓" : "Add to cart"}
+      {!product.inStock ? "Sold out" : added ? "Added ✓" : "Add to cart"}
     </button>
   );
 }

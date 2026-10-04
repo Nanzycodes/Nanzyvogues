@@ -1,6 +1,7 @@
 // src/components/Navbar.tsx
 import Link from "next/link";
 import { CATEGORIES } from "@/app/lib/categories";
+import CartLink from "@/app/components/CartLink";
 
 export default function Navbar() {
   return (
@@ -22,6 +23,7 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+        <CartLink /> {/* shows "Cart (0)" and goes up as items are added */}
       </nav>
     </header>
   );
