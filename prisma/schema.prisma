@@ -11,3 +11,27 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+
+// A list of allowed categories. Like our TypeScript Category type,
+// the database will reject anything not on this list (no "sneakerss")
+enum Category {
+  slides
+  sneakers
+  clothes
+  trousers
+  general
+}
+
+// Each "model" becomes a table. Each field becomes a column
+model Product {
+  id          String   @id @default(cuid())  // unique id, created automatically
+  slug        String   @unique               // no two products can share a slug
+  name        String
+  category    Category                       // must be one of the values above
+  price       Int                            // whole naira amount
+  description String
+  image       String                         // image URL
+  inStock     Boolean  @default(true)        // true unless we say otherwise
+  createdAt   DateTime @default(now())       // time the row was added
+}
