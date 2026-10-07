@@ -8,7 +8,7 @@ export default function Navbar() {
     <header className="border-b">
       <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 p-4">
         <Link href="/" className="text-xl font-bold">
-          Trendy Wears
+          NanzyVogues
         </Link>
 
         <ul className="flex flex-wrap gap-4">
