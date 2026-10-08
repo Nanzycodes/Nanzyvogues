@@ -1,7 +1,8 @@
 // src/app/store/[category]/page.tsx
 import { notFound } from "next/navigation";
 import { isCategory } from "@/app/lib/categories";
-import { getProductsByCategory } from "@/app/data/products";
+import { getProductsByCategory } from "@/app/lib/products"; // new database file
+// ...
 import ProductCard from "@/app/components/productCards";
 
 type Props = { params: Promise<{ category: string }> };
@@ -13,7 +14,7 @@ export default async function CategoryPage({ params }: Props) {
   if (!isCategory(category)) notFound();
 
 
-  const items = getProductsByCategory(category);
+  const items = await getProductsByCategory(category);//await added;
 
   return (
      <main className="mx-auto max-w-6xl p-6">
