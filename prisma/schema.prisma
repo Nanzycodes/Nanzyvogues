@@ -35,3 +35,11 @@ model Product {
   inStock     Boolean  @default(true)        // true unless we say otherwise
   createdAt   DateTime @default(now())       // time the row was added
 }
+// One row per customer account
+model User {
+  id           String   @id @default(cuid())  // unique id, created automatically
+  email        String   @unique               // one account per email address
+  name         String
+  passwordHash String                         // the scrambled password, NEVER the real one
+  createdAt    DateTime @default(now())       // when the account was made
+}
