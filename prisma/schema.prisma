@@ -32,7 +32,7 @@ model Product {
   price       Int                            // whole naira amount
   description String
   image       String                         // image URL
-  inStock     Boolean  @default(true)        // true unless we say otherwise
+  inStock     Boolean  @default(true)        // true unless Said otherwise
   createdAt   DateTime @default(now())       // time the row was added
 }
 // One row per customer account

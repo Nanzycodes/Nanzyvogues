@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/app/lib/categories";
 import CartLink from "@/app/components/CartLink";
+import AuthLinks from "@/app/components/AuthLinks";
 
 export default function Navbar() {
   return (
@@ -24,6 +25,7 @@ export default function Navbar() {
           ))}
         </ul>
         <CartLink /> {/* shows "Cart (0)" and goes up as items are added */}
+        <AuthLinks />
       </nav>
     </header>
   );
