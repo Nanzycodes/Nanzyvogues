@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nanzy Vogues
 
-## Getting Started
+A fashion storefront where customers browse products by category, add them to a cart, and create an account.
 
-First, run the development server:
+**Live demo:** https://nanzyvogues.vercel.app
+
+## What it does
+
+- Browse 5 product categories (slides, sneakers, clothes, trousers, general) with a product page for each item.
+- Add items to a cart that stays in sync across pages.
+- Sign up, log in and log out. Passwords are hashed with bcrypt, and sessions use a signed token in an `httpOnly` cookie that expires after 7 days.
+- Products and user accounts are stored in PostgreSQL through Prisma.
+
+## Performance
+
+Mobile results from PageSpeed Insights (10 Oct 2026):
+
+| Performance | Accessibility | Best Practices | SEO |
+|---|---|---|---|
+| 99 | 100 | 100 | 100 |
+
+Largest Contentful Paint was 2.0 s on throttled slow 4G, with a cumulative layout shift of 0.004.
+
+## Tech stack
+
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Prisma 7, PostgreSQL, Zod for input validation, bcryptjs, jose. Deployed on Vercel.
+
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Nanzycodes/Nanzyvogues.git
+cd Nanzyvogues
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a `.env` file in the project root:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DATABASE"
+SESSION_SECRET="a-long-random-string"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then set up the database and start the app:
 
-## Learn More
+```bash
+npx prisma migrate deploy --config prisma7.config.ts
+npx tsx --env-file=.env prisma/seed.ts
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open http://localhost:3000.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  api/auth/        # signup, login, logout and current-user routes
+  shop/[category]/ # category and product pages
+  cart/            # cart page
+  components/      # navbar, product cards, forms, cart view
+  lib/             # Prisma client, session handling
+prisma/
+  schema.prisma    # Product and User models
+  migrations/
+  seed.ts          # sample products
+```
